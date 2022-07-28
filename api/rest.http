@@ -1,0 +1,59 @@
+
+### api test 
+GET http://localhost:8000/api/v1/user/
+
+### POST user
+POST http://localhost:8000/api/v1/user/
+Content-Type: application/json
+
+{
+    "firstName":"Anmol",
+    "lastName":"bhat",
+    "email":"asd@asdasd",
+    "password":"Anmol"
+}
+
+
+### POST new user
+POST http://localhost:8000/api/v1/user/login
+Content-Type: application/json
+
+{
+    
+    "email":"asd@asdasd",
+    "password":"Anmol"
+}
+
+
+### post new transaction
+
+POST http://localhost:8000/api/v1/user/transaction
+Content-Type: application/json
+
+{
+    "_id":"617364406173646173643333",
+    "type":"income",
+    "title":"shopping gadgets",
+    "amount":2000
+}
+
+
+
+### get new transaction
+
+GET http://localhost:8000/api/v1/user/transaction
+Authorization: "62e098dcd853488122a11a93"
+
+
+### delete  transaction
+DELETE  http://localhost:8000/api/v1/user/transaction
+Content-Type: application/json
+
+{
+    "_id":"617364406173646173643333"
+    
+}
+
+
+
+
