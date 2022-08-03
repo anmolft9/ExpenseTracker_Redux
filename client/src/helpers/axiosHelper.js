@@ -33,7 +33,14 @@ export const loginUser = async (obj) => {
 
 export const postTransactions = async (obj) => {
   try {
-    const response = await axios.post(transactionEP, obj);
+    const user = JSON.parse(sessionStorage.getItem("user")); //to parse json file
+    const userId = user._id;
+
+    const response = await axios.post(transactionEP, obj, {
+      headers: {
+        authorization: userId,
+      },
+    });
     // console.log(response);
     return response.data;
   } catch (error) {

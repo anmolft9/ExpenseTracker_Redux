@@ -1,29 +1,41 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
 import { MainLayout } from "../components/Layout/MainLayout";
-import { toast } from "react-toastify";
-import { loginUser } from "../helpers/axiosHelper";
+
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction } from "./userState/userAction";
+// import { loginAction } from "./client/src/pages/userState/userAction.js";
 
 export const Login = ({ setLoggedIn }) => {
+  const dispatch = useDispatch();
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.user);
+  console.log(user);
+
+  useEffect(() => {
+    user._id && navigate("/dashboard");
+  }, [user]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    const { status, message, user } = await loginUser({ email, password });
-    toast[status](message);
+    // const { status, message, user } = await loginUser({ email, password });
+    // toast[status](message);
 
-    if (status === "success") {
-      console.log(user);
-      window.sessionStorage.setItem("user", JSON.stringify(user));
-      setLoggedIn(true);
-      navigate("/dashboard");
-    }
+    dispatch(loginAction({ email, password }));
+
+    // if (status === "success") {
+    //   console.log(user);
+    //   window.sessionStorage.setItem("user", JSON.stringify(user));
+    //   setLoggedIn(true);
+    //   navigate("/dashboard");
+    // }
   };
 
   return (

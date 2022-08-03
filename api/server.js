@@ -15,8 +15,9 @@ app.use(cors());
 ///API
 import userRouters from "./src/routers/userRouters.js";
 import transactionRouter from "./src/routers/transactionRouter.js";
+import { authMiddleWare } from "./src/routers/middlewares/authMiddleWare.js";
 app.use("/api/v1/user", userRouters);
-app.use("/api/v1/transaction", transactionRouter);
+app.use("/api/v1/transaction", authMiddleWare, transactionRouter);
 
 app.use("/", (req, res) => {
   res.json({
